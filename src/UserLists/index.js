@@ -14,8 +14,8 @@ function UserLists(props) {
 				</Card.Content>
 				<Card.Content extra>
 					<span>{list.created}</span>
-					<Button size='tiny'>Delete List</Button>
-					<Button size='tiny'>Edit List</Button>
+					<Button size='tiny' onClick={() => props.deleteList(list.id)}>Delete List</Button>
+					<Button size='tiny' onClick={() =>props.editList(list.id)}>Edit List</Button>
 				</Card.Content>
 			</Card>
 		)

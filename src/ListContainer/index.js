@@ -55,6 +55,19 @@ class ListContainer extends Component {
 		}
 	}
 
+	deleteList = async (idOfList) => {
+		const deletedListRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/lists/' + idOfList,
+		{
+			method: 'DELETE',
+			credentials: 'include'
+		})
+
+		const deletedListResParsed = await deletedListRes.json()
+		this.setState({
+			lists: this.state.lists.filter((list) => list.id !== idOfList)
+		})
+	}
+
 	render() {
 		return (
 			<Grid 
@@ -66,7 +79,7 @@ class ListContainer extends Component {
 				>
 					<Grid.Row>
 						<Grid.Column>
-							<UserLists lists={this.state.lists}/>
+							<UserLists lists={this.state.lists} deleteList={this.deleteList}/>
 						</Grid.Column>
 						<Grid.Column>
 							<CreateNewList addList={this.addList} />
