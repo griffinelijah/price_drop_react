@@ -23,7 +23,7 @@ class CreateList extends Component {
 					<Label>Title: </Label>
 					<Form.Input type='text' name='title' value={this.state.title} onChange={this.handleChange}/>
 					<Label>Notification Preference: </Label>
-					<Form.Input type='text' name='notif_preference' value={this.state.notif_preference} onChange={this.handleChange}/>
+					<Form.Input type='text' name='notif_preference' value={this.state.notif_preference || ''} onChange={this.handleChange}/>
 					<Button type='submit'>Create List</Button>
 				</Form>
 			</div>
