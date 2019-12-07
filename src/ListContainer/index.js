@@ -21,23 +21,26 @@ class ListContainer extends Component {
 			}
 		}
 	}
-
 	componentDidMount(){
 		this.getLists();
 	}
 	//retrieve all lists via fetch all to api
 	getLists = async () => {
 		try {
-			const lists = await fetch(process.env.REACT_APP_API_URL + '/api/v1/lists/', 
+			const lists = await fetch(process.env.REACT_APP_API_URL + '/api/v1/lists/myLists', 
 			{
 				credentials: 'include'
 			})
 			//parse all found lists
 			const parsedLists = await lists.json();
+			this.setState({
+				lists: parsedLists.data
+			})
 		} catch (err){
 			console.log(err);
 		}
 	}
+
 	//add list
 	addList = async (e, listFromForm) => {
 		e.preventDefault();

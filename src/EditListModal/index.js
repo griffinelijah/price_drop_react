@@ -6,7 +6,7 @@ function EditListModal(props) {
 		<Modal open={props.open} closeIcon onClose={props.closeEditModal}>
 			<Header> Edit List </Header>
 				<Modal.Content>
-					<Form onSubmit={props.updatePost}>
+					<Form onSubmit={props.updateList}>
 						<Label>Title: </Label>
 						<Form.Input
 							type='text'
@@ -22,7 +22,7 @@ function EditListModal(props) {
 							onChange={props.handleEditChange}
 						/>
 						<Modal.Actions>
-							<Button type='Submit'> Submit Changes</Button>
+							<Button type='submit'> Submit Changes</Button>
 						</Modal.Actions>
 					</Form>
 				</Modal.Content>

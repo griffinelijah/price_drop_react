@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Button, Image} from 'semantic-ui-react';
 
 function UserLists(props) {
+	console.log(props.lists);
 	const lists = props.lists.map((list) => {
 		return(
 			<Card key={list.id}>
