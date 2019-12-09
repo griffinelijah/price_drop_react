@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import CreateNewList from '../CreateNewList';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid, Button, Header, Icon, Image } from 'semantic-ui-react';
+import ItemList from '../ItemList'
 import UserLists from '../UserLists'
 import EditListModal from '../EditListModal'
 import CreateNewItem from '../CreateNewItem'
@@ -11,6 +12,7 @@ class ListContainer extends Component {
 		this.state = {
 			lists: [],
 			listId: '',
+			items: [],
 			//this will control whether the edit list modal is open or closed
 			editListModalIsOpen: false,
 			createItemModalIsopen: false,
@@ -25,6 +27,7 @@ class ListContainer extends Component {
 	}
 	componentDidMount(){
 		this.getLists();
+		this.getItems();
 	}
 	//retrieve all lists via fetch all to api
 	getLists = async () => {
@@ -132,6 +135,41 @@ class ListContainer extends Component {
 			console.log(err);
 		}
 	}
+	//this will make a fetch call to retrive items belonging to our lists
+	getItems = async () => {
+		const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/', 
+		{
+			credentials: 'include'
+		})
+		//parsing all found items
+		const parsedItems = await items.json()
+		//set state to include found items
+		this.setState({
+			items: [...this.state.comments, parsedItems.data]
+		})
+	}
+
+	//this will elt us create a new item
+	addItem = async (e, itemFromForm) => {
+		//prevent default page refresh when submitting form
+		e.preventDefault();
+		try {
+			//this will hit the create item route the list that hte item is being added to
+			const createdItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + this.listId, 
+			{
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(itemFromForm),
+				headers:{
+					'Content-Type': 'application/json'
+				}
+			})
+			const parsedItemRes = createdItemRes.json();
+			this.setState({items: [...this.state.items, parsedItemRes.data]})
+		} catch(err) {
+			console.log(err);
+		}
+	}
 	//close edit modal
 	closeEditModal = () => {
 		this.setState({
@@ -174,11 +212,13 @@ class ListContainer extends Component {
 							this.state.createItemModalIsopen === true
 							?
 						<Grid.Column>
+							<ItemList items={this.state.items} />
 							<CreateNewItem
 							listId={this.state.listId}
 							openCreateItemModal={this.openCreateItemModal}
 							open={this.state.createItemModalIsopen}
 							closeCreateItemModal={this.closeCreateItemModal}
+							addItem={this.addItem}
 							/>
 						</Grid.Column>
 						:

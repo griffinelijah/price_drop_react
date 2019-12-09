@@ -131,7 +131,6 @@ class App extends Component {
         />
       </Menu>
         <ListContainer userEmail={this.state.loggedInUserEmail} />
-        <ItemContainer userEmail={this.state.loggedInUserEmail}/>
           </React.Fragment>
           ) : (
             <LoginRegisterForm  login={this.login} register={this.register}/>
