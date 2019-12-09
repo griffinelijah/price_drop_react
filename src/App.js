@@ -4,6 +4,7 @@ import './App.css';
 import './index.css'
 import LoginRegisterForm from './LoginRegisterForm'
 import ListContainer from './ListContainer'
+import ItemContainer from './ItemContainer'
 import { Form, Message, Button, Input, Menu } from 'semantic-ui-react'
 
 
@@ -130,6 +131,7 @@ class App extends Component {
         />
       </Menu>
         <ListContainer userEmail={this.state.loggedInUserEmail} />
+        <ItemContainer userEmail={this.state.loggedInUserEmail}/>
           </React.Fragment>
           ) : (
             <LoginRegisterForm  login={this.login} register={this.register}/>

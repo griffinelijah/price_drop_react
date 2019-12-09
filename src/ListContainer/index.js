@@ -79,7 +79,6 @@ class ListContainer extends Component {
 	}
 	//edit list route will take if of list from button click and pass to edit list function
 	editList = (idOfList) => {
-		console.log(this.state.listToEdit)
 		//find list by that matches listId being passed through on butotn click
 		const listToEdit = this.state.lists.find(list => list.id === idOfList)
 		this.setState({

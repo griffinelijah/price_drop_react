@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Header, Icon, Image }
+import { Button, Header, Icon, Image } from 'semantic-ui-react'
+import ItemList from '../ItemList'
+import CreateNewItem from '../CreateNewItem'
 
 
 class ItemContainer extends Component {
@@ -45,6 +47,8 @@ class ItemContainer extends Component {
 			})
 			const parsedItemRes = createdItemRes.json();
 			this.setState({items: [...this.state.items, parsedItemRes.data]})
+		} catch(err) {
+			console.log(err);
 		}
 	}
 	render(){
@@ -59,6 +63,7 @@ class ItemContainer extends Component {
 			</React.Fragment>
 		)
 	}
+}
 
 export default ItemContainer
 
