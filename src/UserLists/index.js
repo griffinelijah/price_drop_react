@@ -17,6 +17,8 @@ function UserLists(props) {
 					<span>{list.created}</span>
 					<Button size='tiny' onClick={() => props.deleteList(list.id)}>Delete List</Button>
 					<Button size='tiny' onClick={() =>props.editList(list.id)}>Edit List</Button>
+					<Button size='tiny' onClick={() =>props.openCreateItemModal(list.id)}>Add Item</Button>
+					
 				</Card.Content>
 			</Card>
 		)

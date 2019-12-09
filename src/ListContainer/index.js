@@ -3,6 +3,7 @@ import CreateNewList from '../CreateNewList';
 import { Grid, Button } from 'semantic-ui-react';
 import UserLists from '../UserLists'
 import EditListModal from '../EditListModal'
+import CreateNewItem from '../CreateNewItem'
 
 class ListContainer extends Component {
 	constructor(props){
@@ -12,6 +13,7 @@ class ListContainer extends Component {
 			listId: '',
 			//this will control whether the edit list modal is open or closed
 			editListModalIsOpen: false,
+			createItemModalIsopen: false,
 			//this will be used to store state of list that is being updated 
 			listToEdit: {
 				title: '',
@@ -136,6 +138,19 @@ class ListContainer extends Component {
 			editListModalIsOpen: false
 		})
 	}
+	//this will open the modal to create an item on a list
+	openCreateItemModal = (listId) => {
+		this.setState({
+			listId: listId,
+			createItemModalIsopen: true
+		})
+	}
+
+	closeCreateItemModal = () => {
+		this.setState({
+			createItemModalIsopen: false
+		})
+	}
 
 	render() {
 		return (
@@ -152,8 +167,23 @@ class ListContainer extends Component {
 							lists={this.state.lists}
 							deleteList={this.deleteList}
 							editList={this.editList}
+							openCreateItemModal={this.openCreateItemModal}
 							/>
 						</Grid.Column>
+						{
+							this.state.createItemModalIsopen === true
+							?
+						<Grid.Column>
+							<CreateNewItem
+							listId={this.state.listId}
+							openCreateItemModal={this.openCreateItemModal}
+							open={this.state.createItemModalIsopen}
+							closeCreateItemModal={this.closeCreateItemModal}
+							/>
+						</Grid.Column>
+						:
+						null
+						}
 						<Grid.Column>
 							<CreateNewList addList={this.addList} />
 						</Grid.Column>
