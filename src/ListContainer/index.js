@@ -123,7 +123,7 @@ class ListContainer extends Component {
 				return list
 			})
 			//set state to new arr from above 
-			this.setState({lists: {...this.state.lists, listArrAfterUpdates}})
+			this.setState({lists: listArrAfterUpdates})
 			//after updating state close modal
 			this.closeEditModal();
 		} catch(err) {

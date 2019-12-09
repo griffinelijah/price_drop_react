@@ -23,7 +23,7 @@ function UserLists(props) {
 	})
 	return (
 		<Card.Group>
-			{lists}
+			{ lists }
 		</Card.Group>
 	)	
 }
