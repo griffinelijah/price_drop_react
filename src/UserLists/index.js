@@ -3,7 +3,7 @@ import { Card, Button, Image} from 'semantic-ui-react';
 import ItemList from '../ItemList'
 
 function UserLists(props) {
-	console.log(props.lists);
+	// console.log(props.lists);
 	const lists = props.lists.map((list) => {
 		console.log('\nthis is props.items in Userlists');
 		console.log(props.items);
@@ -22,7 +22,13 @@ function UserLists(props) {
 							<Button size='tiny' onClick={() =>props.handleClick(list.id)}>Add Item</Button>
 						</Card.Content>
 						<Card.Content extra>
-							<ItemList items={props.items} deleteItem={props.deleteItem}/>
+							<ItemList 
+							items={props.items} 
+							getItems={props.getItems}
+							deleteItem={props.deleteItem}
+							lists={props.list}
+							listId={list.id}
+							/>
 						</Card.Content>
 				</Card.Content>
 			</Card>

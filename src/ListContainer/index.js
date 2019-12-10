@@ -27,7 +27,6 @@ class ListContainer extends Component {
 	}
 	componentDidMount(){
 		this.getLists();
-		this.getItems();
 	}
 	//retrieve all lists via fetch all to api
 	getLists = async () => {
@@ -38,12 +37,16 @@ class ListContainer extends Component {
 			})
 			//parse all found lists
 			const parsedLists = await lists.json();
+			console.log('got lists:', parsedLists.data)
+			// parsedLists.data.forEach(list => console.log('list:', list))
+
 			this.setState({
 				lists: parsedLists.data
 			})
 		} catch (err){
 			console.log(err);
 		}
+
 	}
 
 	//add list
@@ -68,6 +71,32 @@ class ListContainer extends Component {
 			console.log(err);
 		}
 	}
+
+	//this will make a fetch call to retrive items belonging to our lists
+	getItems = async () => {
+		// console.log("this is listId in getItems")
+		
+		for(let i = 0; i < this.props.lists.length; i++){
+			const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + i.id, 
+				console.log('this is the url we ar ehitting on get items'),
+				console.log(process.env.REACT_APP_API_URL + 'api/v1/items/' + i.id),
+			{
+				method: 'GET',
+				credentials: 'include'
+			})
+			//parsing all found items
+			const parsedItems = await items.json()
+			console.log(parsedItems.data, '< items')
+			
+			//set state to include found items
+			this.setState({
+				items: parsedItems.data
+			})
+
+		}
+		
+	}
+
 	//delete list route, takes id of list from button click to run delete function
 	deleteList = async (idOfList) => {
 		const deletedListRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/lists/' + idOfList,
@@ -131,32 +160,9 @@ class ListContainer extends Component {
 			//after updating state close modal
 			this.closeEditModal();
 		} catch(err) {
-			console.log('\nthis is an error after updating list and closing modal');
+			// console.log('\nthis is an error after updating list and closing modal');
 			console.log(err);
 		}
-	}
-	//this will make a fetch call to retrive items belonging to our lists
-	getItems = async () => {
-		console.log("this is listId in getItems")
-		
-		for(let i = 0; i < this.state.lists.length; i++){
-			const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + i.id, 
-				console.log('this is the url we ar ehitting on get items'),
-				console.log(process.env.REACT_APP_API_URL + 'api/v1/items/' + i.id),
-			{
-				method: 'GET',
-				credentials: 'include'
-			})
-			//parsing all found items
-			const parsedItems = await items.json()
-			
-			//set state to include found items
-			this.setState({
-				items: [...this.state.items, parsedItems.data]
-			})
-
-		}
-		
 	}
 
 	//this will elt us create a new item
@@ -166,6 +172,8 @@ class ListContainer extends Component {
 		try {
 			console.log('\nthis is this.state.listId when making fetch call to add item')
 			console.log(this.state.listId);
+			console.log('\nthis is this.state in addItem');
+			console.log(this.state);
 			//this will hit the create item route the list that hte item is being added to
 			const createdItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + this.state.listId,
 			{
@@ -220,8 +228,8 @@ class ListContainer extends Component {
 		this.openCreateItemModal(listId);
 	}
 	render() {
-		console.log("here is tihs.state.items in List Conttainer")
-		console.log(this.state.items)
+		// console.log("here is tihs.state.items in List Conttainer")
+		// console.log(this.state.items)
 		return (
 			<Grid 
 				columns={3}
@@ -238,6 +246,7 @@ class ListContainer extends Component {
 							editList={this.editList}
 							handleClick={this.handleClick}
 							items={this.state.items}
+							getItems={this.getItems}
 							deleteItem={this.deleteItem}
 							/>
 						

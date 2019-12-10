@@ -3,7 +3,7 @@ import { Modal, Form, Button, Label, Segment} from 'semantic-ui-react';
 
 class CreateNewItem extends Component {
 	constructor(props){
-		console.log(props)
+		// console.log(props)
 		super(props)
 		this.state = {
 			url: ''
