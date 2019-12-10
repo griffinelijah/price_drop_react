@@ -1,52 +1,32 @@
-import React, { Component } from 'react';
-import { List, Image, Button } from 'semantic-ui-react'
-//pasas the list id into this
-//make it a class
-//make fetch call fo the lists here by the list id
+import React from 'react';
+import { List, Image } from 'semantic-ui-react'
 
-class ItemList extends Component {
-	constructor(props){
-		super(props)
-			// this.state = {
-			// 	items: this.props.items
-			// }
-	}
-	componentDidMount(){
-
-	}
-	
-
-
-	render() {
-		this.props.getItems(this.props.listId);
-
-		const items = this.props.items.map((item) => {
-			// console.log('this is item inside of item map in ItemList');
-			// console.log(typeof item)
-			// console.log(item)
+function ItemList(props){
+	// console.log(props.items);
+	let items
+	if (props.items !== undefined){
+		items = props.items.map((item) => {
 			return(
-				<List key={item.id} celled>
-				  <List.Item >
-			      <Image avatar src={item.image} />
-				      <List.Content>
-					        <List.Header>{item.name}</List.Header>
-										<span>Original Price: {item.original_price}</span><br/>
-										<strong>Discounted Price: {item.disc_price}</strong>
-				      </List.Content>
-				      <Button size='mini' type='submit' onClick={() => this.props.deleteItem(item.id)}>Delete</Button>
-				    </List.Item>
-			   	</List>
-				)
+				<List celled>
+					<List.Item>
+						<Image avatar src={item.image} />
+						<List.Content>
+							<List.Header>{item.title}</List.Header>
+							<List.Description>Original Price: {item.orig_price} || Discounted Price: {item.disc_price}
+							</List.Description>
+						</List.Content>
+					</List.Item>
+				</List>
+			)
 		})
-
-
-
-		return (
-			{items}
-		)
+	} else {
+		items = null
 	}
+	return (
+		<div>
+			{ items }
+		</div>
+	)
 }
-
-
 
 export default ItemList

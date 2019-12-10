@@ -1,15 +1,12 @@
 import React from 'react';
 import { Card, Button, Image} from 'semantic-ui-react';
-import ItemList from '../ItemList'
 
 function UserLists(props) {
 	// console.log(props.lists);
 	const lists = props.lists.map((list) => {
-		console.log('\nthis is props.items in Userlists');
-		console.log(props.items);
-
 		return(
 			<Card key={list.id}>
+				<Image src={list.image} wrapped ui={false} />
 				<Card.Content>
 					<Card.Header>{list.title}</Card.Header>
 						<Card.Meta>

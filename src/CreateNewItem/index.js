@@ -6,7 +6,8 @@ class CreateNewItem extends Component {
 		// console.log(props)
 		super(props)
 		this.state = {
-			url: ''
+			url: '',
+			item: ''
 		}
 	}
 
