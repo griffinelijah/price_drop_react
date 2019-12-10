@@ -219,10 +219,17 @@ class ListContainer extends Component {
 		})
 	}
 
-	//deleteItem () => {
-		
-	// }
-
+	deleteItem = async (itemId) => {
+		const deletedItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + itemId, 
+		{
+			method: 'DELETE',
+			credentials: 'include'
+		})
+		const deletedItemResParsed = await deletedItemRes.json();
+		this.setState({
+			items: this.state.items.filter((item) => item.id !== itemId)
+		})
+	}
 
 	render() {
 

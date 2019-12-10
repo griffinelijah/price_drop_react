@@ -18,6 +18,7 @@ function ItemList(props){
 								<strong>Discounted Price: {item.disc_price}</strong>
 								</List.Description>
 							</List.Content>
+							<Button type='submit' onClick={() => props.deleteItem(item.id)}>Delete</Button>
 						</List.Item>
 					</List>
 				)
