@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import CreateNewList from '../CreateNewList';
-import { Grid, Button, Header, Icon, Image } from 'semantic-ui-react';
+import { Grid, Button, Header, Icon, Image, List } from 'semantic-ui-react';
 import ItemList from '../ItemList'
 import UserLists from '../UserLists'
 import EditListModal from '../EditListModal'
@@ -137,16 +137,26 @@ class ListContainer extends Component {
 	}
 	//this will make a fetch call to retrive items belonging to our lists
 	getItems = async () => {
-		const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/', 
-		{
-			credentials: 'include'
-		})
-		//parsing all found items
-		const parsedItems = await items.json()
-		//set state to include found items
-		this.setState({
-			items: [...this.state.comments, parsedItems.data]
-		})
+		console.log("this is listId in getItems")
+		
+		for(let i = 0; i < this.state.lists.length; i++){
+			const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + i.id, 
+				console.log('this is the url we ar ehitting on get items'),
+				console.log(process.env.REACT_APP_API_URL + 'api/v1/items/' + i.id),
+			{
+				method: 'GET',
+				credentials: 'include'
+			})
+			//parsing all found items
+			const parsedItems = await items.json()
+			
+			//set state to include found items
+			this.setState({
+				items: [...this.state.items, parsedItems.data]
+			})
+
+		}
+		
 	}
 
 	//this will elt us create a new item
@@ -154,8 +164,10 @@ class ListContainer extends Component {
 		//prevent default page refresh when submitting form
 		e.preventDefault();
 		try {
+			console.log('\nthis is this.state.listId when making fetch call to add item')
+			console.log(this.state.listId);
 			//this will hit the create item route the list that hte item is being added to
-			const createdItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + this.listId, 
+			const createdItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + this.state.listId,
 			{
 				method: 'POST',
 				credentials: 'include',
@@ -164,8 +176,10 @@ class ListContainer extends Component {
 					'Content-Type': 'application/json'
 				}
 			})
-			const parsedItemRes = createdItemRes.json();
+			const parsedItemRes = await createdItemRes.json();
+			console.log('type of data in fetch call:', typeof parsedItemRes)
 			this.setState({items: [...this.state.items, parsedItemRes.data]})
+			console.log('after being added to state:', this.state.items)
 		} catch(err) {
 			console.log(err);
 		}
@@ -189,11 +203,28 @@ class ListContainer extends Component {
 			createItemModalIsopen: false
 		})
 	}
-
+	//fetch to delete a single item
+	deleteItem = async (itemId) => {
+		const deleteItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + itemId, 
+		{
+			method: 'DELETE',
+			credentials: 'include'
+		})
+		const deleteItemResParsed = await deleteItemRes.json()
+		this.setState({
+			items: this.state.items.filter((item) => item.id !== itemId)
+		})
+	}
+	handleClick = (listId) => {
+		// this.getItems(listId);
+		this.openCreateItemModal(listId);
+	}
 	render() {
+		console.log("here is tihs.state.items in List Conttainer")
+		console.log(this.state.items)
 		return (
 			<Grid 
-				columns={2}
+				columns={3}
 				divided textAlign='center'
 				style={{height: '100%'}}
 				verticalAlign='top'
@@ -205,14 +236,16 @@ class ListContainer extends Component {
 							lists={this.state.lists}
 							deleteList={this.deleteList}
 							editList={this.editList}
-							openCreateItemModal={this.openCreateItemModal}
+							handleClick={this.handleClick}
+							items={this.state.items}
+							deleteItem={this.deleteItem}
 							/>
+						
 						</Grid.Column>
 						{
 							this.state.createItemModalIsopen === true
 							?
 						<Grid.Column>
-							<ItemList items={this.state.items} />
 							<CreateNewItem
 							listId={this.state.listId}
 							openCreateItemModal={this.openCreateItemModal}
@@ -227,7 +260,7 @@ class ListContainer extends Component {
 						<Grid.Column>
 							<CreateNewList addList={this.addList} />
 						</Grid.Column>
-							<EditListModal
+ 							<EditListModal
 								open={this.state.editListModalIsOpen}
 								updateList={this.updateList}
 								listToEdit={this.state.listToEdit}
