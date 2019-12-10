@@ -1,23 +1,29 @@
 import React from 'react';
-import { List, Image } from 'semantic-ui-react'
+import { List, Image, Button } from 'semantic-ui-react'
 
 function ItemList(props){
 	// console.log(props.items);
 	let items
 	if (props.items !== undefined){
 		items = props.items.map((item) => {
-			return(
-				<List celled>
-					<List.Item>
-						<Image avatar src={item.image} />
-						<List.Content>
-							<List.Header>{item.title}</List.Header>
-							<List.Description>Original Price: {item.orig_price} || Discounted Price: {item.disc_price}
-							</List.Description>
-						</List.Content>
-					</List.Item>
-				</List>
-			)
+			if(item.list_id.id === props.listId){
+				return(
+					<List key={item.id} celled>
+						<List.Item>
+							<Image avatar src={item.image} />
+							<List.Content>
+								<List.Header>{item.title}</List.Header>
+								<List.Description>
+								<span>Original Price: {item.original_price}</span><br/>
+								<strong>Discounted Price: {item.disc_price}</strong>
+								</List.Description>
+							</List.Content>
+						</List.Item>
+					</List>
+				)
+			} else {
+				return null
+			}
 		})
 	} else {
 		items = null

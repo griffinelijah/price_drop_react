@@ -164,37 +164,25 @@ class ListContainer extends Component {
 			console.log(err);
 		}
 	}
-// <<<<<<< HEAD
-// =======
-	//this will make a fetch call to retrive items belonging to our lists
-	getItems = async () => {
-		const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/', 
-		{
-			credentials: 'include'
-		})
-		//parsing all found items
-		const parsedItems = await items.json()
-		//set state to include found items
-		this.setState({
-			items: [...this.state.comments, parsedItems.data]
-		})
-	}
-// >>>>>>> parent of a5965a2... delete function working but deleting all of the items
-
+	// //this will make a fetch call to retrive items belonging to our lists
+	// getItems = async () => {
+	// 	const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/', 
+	// 	{
+	// 		credentials: 'include'
+	// 	})
+	// 	//parsing all found items
+	// 	const parsedItems = await items.json()
+	// 	//set state to include found items
+	// 	this.setState({
+	// 		items: [...this.state.comments, parsedItems.data]
+	// 	})
+	// }
 	//this will elt us create a new item
 	addItem = async (e, itemFromForm) => {
 		//prevent default page refresh when submitting form
 		e.preventDefault();
 		try {
-// <<<<<<< HEAD
-// 			console.log('\nthis is this.state.listId when making fetch call to add item')
-// 			console.log(this.state.listId);
-// 			console.log('\nthis is this.state in addItem');
-// 			console.log(this.state);
-// =======
-// >>>>>>> parent of a5965a2... delete function working but deleting all of the items
-			//this will hit the create item route the list that hte item is being added to
-			const createdItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + this.listId, 
+			const createdItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + this.state.listId, 
 			{
 				method: 'POST',
 				credentials: 'include',
@@ -203,7 +191,9 @@ class ListContainer extends Component {
 					'Content-Type': 'application/json'
 				}
 			})
-			const parsedItemRes = createdItemRes.json();
+			const parsedItemRes = await createdItemRes.json();
+			console.log('\nthis is parsedItemRes in addItem');
+			console.log(parsedItemRes);
 			this.setState({items: [...this.state.items, parsedItemRes.data]})
 		} catch(err) {
 			console.log(err);
@@ -229,6 +219,11 @@ class ListContainer extends Component {
 		})
 	}
 
+	//deleteItem () => {
+		
+	// }
+
+
 	render() {
 
 		return (
@@ -245,21 +240,16 @@ class ListContainer extends Component {
 							lists={this.state.lists}
 							deleteList={this.deleteList}
 							editList={this.editList}
-// <<<<<<< HEAD
-// 							handleClick={this.handleClick}
-// 							items={this.state.items}
-// 							getItems={this.getItems}
-// 							deleteItem={this.deleteItem}
-// =======
+							items={this.state.items}
+							getItems={this.getItems}
+							deleteItem={this.deleteItem}
 							openCreateItemModal={this.openCreateItemModal}
-// >>>>>>> parent of a5965a2... delete function working but deleting all of the items
 							/>
 						</Grid.Column>
 						{
 							this.state.createItemModalIsopen === true
 							?
 						<Grid.Column>
-							<ItemList items={this.state.items} />
 							<CreateNewItem
 							listId={this.state.listId}
 							openCreateItemModal={this.openCreateItemModal}

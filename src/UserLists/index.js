@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button, Image} from 'semantic-ui-react';
+import ItemList from '../ItemList'
 
 function UserLists(props) {
 	// console.log(props.lists);
@@ -16,15 +17,15 @@ function UserLists(props) {
 							<span>{list.created}</span>
 							<Button size='tiny' onClick={() => props.deleteList(list.id)}>Delete List</Button>
 							<Button size='tiny' onClick={() =>props.editList(list.id)}>Edit List</Button>
-							<Button size='tiny' onClick={() =>props.handleClick(list.id)}>Add Item</Button>
+							<Button size='tiny' onClick={() =>props.openCreateItemModal(list.id)}>Add Item</Button>
 						</Card.Content>
 						<Card.Content extra>
-							<ItemList 
-							items={props.items} 
-							getItems={props.getItems}
-							deleteItem={props.deleteItem}
-							lists={props.list}
-							listId={list.id}
+							<ItemList
+								items={props.items}
+								getItems={props.getItems}
+								deleteItem={props.deleteItem}
+								lists={props.list}
+								listId={list.id}
 							/>
 						</Card.Content>
 				</Card.Content>
