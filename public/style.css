@@ -1,0 +1,31 @@
+body {
+  background-image: url('background.jpg');
+}
+
+.cardContent {
+  background-color: red;
+}
+
+.title {
+  padding: 1%;
+  color: #1f1f1f;
+  font-size: 400%;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: grey;
+}
+
+.navBar {
+  display: flex;
+  justify-content: center;
+  background-color: #1f1f1f;
+  margin: 1%;
+}
+
+.navItem {
+  color: white;
+}
+
+.ui.card>.content,
+.ui.cards>.card>.content {
+  background-color: #4a4a4a;
+}

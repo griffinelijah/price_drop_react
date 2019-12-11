@@ -1,8 +1,10 @@
 .App {
   text-align: center;
-  background-color: #1f1f1f;
 }
 
+body {
+  background-image: url('background.jpg');
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

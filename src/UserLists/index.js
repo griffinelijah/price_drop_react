@@ -6,7 +6,7 @@ function UserLists(props) {
 	// console.log(props.lists);
 	const lists = props.lists.map((list) => {
 		return(
-			<Card key={list.id}>
+			<Card key={list.id} centered items={list}>
 				<Image src={list.image} wrapped ui={false} />
 				<Card.Content>
 					<Card.Header>{list.title}</Card.Header>
