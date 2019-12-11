@@ -129,6 +129,11 @@ class App extends Component {
           active={activeItem === 'logout'}
           onClick={this.handleItemClick} 
         />
+        <Menu.Item
+          name='create new list'
+          active={activeItem === 'create a list'}
+          onClick={this.handleItemClick}
+        />
       </Menu>
         <ListContainer userEmail={this.state.loggedInUserEmail} />
           </React.Fragment>

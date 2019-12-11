@@ -27,6 +27,7 @@ class ListContainer extends Component {
 	}
 	componentDidMount(){
 		this.getLists();
+		this.getItems();
 	}
 	//retrieve all lists via fetch all to api
 	getLists = async () => {
@@ -76,7 +77,7 @@ class ListContainer extends Component {
 	getItems = async () => {
 		// console.log("this is listId in getItems")
 		
-		for(let i = 0; i < this.props.lists.length; i++){
+		for(let i = 0; i < this.state.lists.length; i++){
 			const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + i.id, 
 				console.log('this is the url we ar ehitting on get items'),
 				console.log(process.env.REACT_APP_API_URL + 'api/v1/items/' + i.id),
