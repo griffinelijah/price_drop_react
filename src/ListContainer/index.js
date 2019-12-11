@@ -136,7 +136,7 @@ class ListContainer extends Component {
 		//stop default page refresh when submitting form
 		e.preventDefault();
 		try {
-			const apiUrl = process.env.REACT_APP_API_URL + '/api/v1/lists/' + this.	state.listToEdit.id
+			const apiUrl = process.env.REACT_APP_API_URL + '/api/v1/listsx	/' + this.state.listToEdit.id
 			const updatedListRes = await fetch(apiUrl,
 			{
 				method: 'PUT',
@@ -219,7 +219,6 @@ class ListContainer extends Component {
 			createItemModalIsopen: false
 		})
 	}
-
 	deleteItem = async (itemId) => {
 		const deletedItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + itemId, 
 		{
@@ -270,7 +269,11 @@ class ListContainer extends Component {
 						null
 						}
 						<Grid.Column>
-							<CreateNewList addList={this.addList} />
+							<CreateNewList 
+							addList={this.addList}
+				     	open={this.props.open}
+	            closeCreateListModal={this.props.closeCreateListModal}
+						 />
 						</Grid.Column>
 							<EditListModal
 								open={this.state.editListModalIsOpen}

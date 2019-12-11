@@ -6,6 +6,7 @@ import LoginRegisterForm from './LoginRegisterForm'
 import ListContainer from './ListContainer'
 import ItemContainer from './ItemContainer'
 import { Form, Message, Button, Input, Menu } from 'semantic-ui-react'
+import CreateNewList from './CreateNewList'
 
 
 class App extends Component {
@@ -15,7 +16,8 @@ class App extends Component {
       loggedIn: false,
       loggedInUserEmail: null,
       loginCode: 200,
-      activeItem: 'home'
+      activeItem: 'home',
+      createListModalIsOpen: false
     }
   }
 
@@ -66,6 +68,7 @@ class App extends Component {
       console.log('registration failed');
     }
   }
+
   logout = async () => {
     //this will let user logout from website
     const res = await fetch(
@@ -91,11 +94,23 @@ class App extends Component {
   buttonAction = () => {
     if(this.state.activeItem === 'home'){
       console.log('home');
-    } else if(this.state.activeItem === 'create post'){
-      console.log('create post');
+    } else if(this.state.activeItem === 'create a list'){
+      this.openCreateListModal()
     } else if(this.state.activeItem === 'logout'){
       this.logout()
     }
+  }
+
+  openCreateListModal = () => {
+    this.setState({
+      createListModalIsOpen: true
+    })
+  }
+
+  closeCreateListModal = () => {
+    this.setState({
+      createListModalIsOpen: false
+    })
   }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name }, this.buttonAction)
 
@@ -119,27 +134,31 @@ class App extends Component {
         {this.state.loggedIn ? (
           <React.Fragment>
            <Menu secondary>
-        <Menu.Item
-          name='home'
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name='logout'
-          active={activeItem === 'logout'}
-          onClick={this.handleItemClick} 
-        />
-        <Menu.Item
-          name='create new list'
-          active={activeItem === 'create a list'}
-          onClick={this.handleItemClick}
-        />
-      </Menu>
-        <ListContainer userEmail={this.state.loggedInUserEmail} />
-          </React.Fragment>
-          ) : (
-            <LoginRegisterForm  login={this.login} register={this.register}/>
-          )}
+            <Menu.Item
+              name='home'
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick}
+            />
+            <Menu.Item
+              name='logout'
+              active={activeItem === 'logout'}
+              onClick={this.handleItemClick} 
+            />
+            <Menu.Item
+              name='create a list'
+              active={activeItem === 'create a list'}
+              onClick={this.handleItemClick}
+            />
+          </Menu>
+          <ListContainer 
+            userEmail={this.state.loggedInUserEmail} 
+            open={this.state.createListModalIsOpen}
+            closeCreateListModal={this.closeCreateListModal}
+          />
+            </React.Fragment>
+            ) : (
+              <LoginRegisterForm  login={this.login} register={this.register}/>
+            )}
       </div>
     )
   }
