@@ -19,7 +19,7 @@ function UserLists(props) {
 							<Button size='tiny' onClick={() =>props.editList(list.id)}>Edit List</Button>
 							<Button size='tiny' onClick={() =>props.openCreateItemModal(list.id)}>Add Item</Button>
 						</Card.Content>
-						<Card.Content extra>
+						<Card.Content extra >
 							<ItemList
 								items={props.items}
 								getItems={props.getItems}

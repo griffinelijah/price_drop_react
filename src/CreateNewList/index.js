@@ -21,7 +21,6 @@ class CreateList extends Component {
 		console.log(this.props);
 		return(
 			<div className='listForm'>
-			<h1>Create new list</h1>
 				<Modal
 					open={this.props.open}
 					closeIcon

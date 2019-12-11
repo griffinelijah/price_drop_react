@@ -4,7 +4,6 @@ import './App.css';
 import './index.css'
 import LoginRegisterForm from './LoginRegisterForm'
 import ListContainer from './ListContainer'
-import ItemContainer from './ItemContainer'
 import { Form, Message, Button, Input, Menu } from 'semantic-ui-react'
 import CreateNewList from './CreateNewList'
 
@@ -133,29 +132,33 @@ class App extends Component {
         }
         {this.state.loggedIn ? (
           <React.Fragment>
-           <Menu secondary>
-            <Menu.Item
-              name='home'
-              active={activeItem === 'home'}
-              onClick={this.handleItemClick}
+            <div className='navBar'>
+             <Menu secondary inverted stackable size='huge'>
+              <Menu.Item class="navItem"
+                size='big'
+                name='home'
+                active={activeItem === 'home'}
+                onClick={this.handleItemClick}
+              />
+              <Menu.Item class="navItem"
+                name='logout'
+                active={activeItem === 'logout'}
+                onClick={this.handleItemClick} 
+              />
+              <Menu.Item class="navItem"
+                name='create a list'
+                active={activeItem === 'create a list'}
+                onClick={this.handleItemClick}
+              />
+            </Menu>
+          </div>
+            <ListContainer 
+              userEmail={this.state.loggedInUserEmail} 
+              open={this.state.createListModalIsOpen}
+              closeCreateListModal={this.closeCreateListModal}
             />
-            <Menu.Item
-              name='logout'
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick} 
-            />
-            <Menu.Item
-              name='create a list'
-              active={activeItem === 'create a list'}
-              onClick={this.handleItemClick}
-            />
-          </Menu>
-          <ListContainer 
-            userEmail={this.state.loggedInUserEmail} 
-            open={this.state.createListModalIsOpen}
-            closeCreateListModal={this.closeCreateListModal}
-          />
-            </React.Fragment>
+            
+          </React.Fragment>
             ) : (
               <LoginRegisterForm  login={this.login} register={this.register}/>
             )}

@@ -235,7 +235,7 @@ class ListContainer extends Component {
 
 		return (
 			<Grid 
-				columns={2}
+				columns={1}
 				divided textAlign='center'
 				style={{height: '100%'}}
 				verticalAlign='top'
