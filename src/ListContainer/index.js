@@ -64,8 +64,10 @@ class ListContainer extends Component {
 					'Content-Type': 'application/json'
 				}
 			})
-
 			const parsedRes = await createdListRes.json()
+			if(parsedRes.status.code === 201){
+				this.props.closeCreateListModal();
+			}
 			this.setState({lists: [...this.state.lists, parsedRes.data]})
 		}
 		catch(err){
