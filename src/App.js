@@ -7,6 +7,7 @@ import ListContainer from './ListContainer'
 import { Form, Message, Button, Input, Menu } from 'semantic-ui-react'
 import CreateNewList from './CreateNewList'
 import priceDropIcon from './price-drop-icon.png'
+import FaqModal from './FaqModal'
 
 
 class App extends Component {
@@ -17,7 +18,8 @@ class App extends Component {
       loggedInUserEmail: null,
       loginCode: 200,
       activeItem: 'home',
-      createListModalIsOpen: false
+      createListModalIsOpen: false,
+      faqModalIsOpen: false
     }
   }
 
@@ -98,9 +100,22 @@ class App extends Component {
       this.openCreateListModal()
     } else if(this.state.activeItem === 'logout'){
       this.logout()
+    } else if(this.state.activeItem === 'faq') {
+      this.openFaqModal()
     }
   }
 
+  openFaqModal = () => {
+    this.setState({
+      faqModalIsOpen: true
+    })
+  }
+
+  closeFaqModal = () => {
+    this.setState({
+      faqModalIsOpen: false
+    })
+  }
   openCreateListModal = () => {
     this.setState({
       createListModalIsOpen: true
@@ -119,6 +134,10 @@ class App extends Component {
     return (
        <div className='App'>
         <h1 className='title'>Price_Drop<img className='icon'src={priceDropIcon}/></h1>
+        <FaqModal 
+        open={this.state.faqModalIsOpen}
+        closeFaqModal={this.closeFaqModal}
+        />
         
         {this.state.loginCode === 401
           ?
@@ -137,20 +156,24 @@ class App extends Component {
             <div className='navBar'>
              <Menu secondary  stackable size='huge'className='ui menu'>
               <Menu.Item
-                size='big'
                 name='home'
                 active={activeItem === 'home'}
+                onClick={this.handleItemClick}
+              />
+              <Menu.Item class="navItem"
+                name='create a list'
+                active={activeItem === 'create a list'}
+                onClick={this.handleItemClick}
+              />
+              <Menu.Item
+                name='faq'
+                active={activeItem === 'faq'}
                 onClick={this.handleItemClick}
               />
               <Menu.Item class="navItem"
                 name='logout'
                 active={activeItem === 'logout'}
                 onClick={this.handleItemClick} 
-              />
-              <Menu.Item class="navItem"
-                name='create a list'
-                active={activeItem === 'create a list'}
-                onClick={this.handleItemClick}
               />
             </Menu>
           </div>
@@ -159,6 +182,7 @@ class App extends Component {
               open={this.state.createListModalIsOpen}
               closeCreateListModal={this.closeCreateListModal}
             />
+
             
           </React.Fragment>
             ) : (
