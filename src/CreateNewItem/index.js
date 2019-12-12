@@ -27,12 +27,9 @@ class CreateNewItem extends Component {
 							{
 								this.props.isLoading === true
 								?
-								<div class="ui segment">
 								  <div class="ui active dimmer">
-								    <div class="ui text loader">Loading</div>
+								    <div class="ui large text loader">Getting Your Items!</div>
 								  </div>
-								  <p></p>
-								</div>
 								:
 								null
 							}
