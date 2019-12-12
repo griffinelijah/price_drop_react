@@ -3,6 +3,8 @@ import { Form, Button, Label, Header, Modal} from 'semantic-ui-react';
 
 function EditListModal(props) {
 	return (
+		console.log('\nthis is props in EditListModal'),
+		console.log(props),
 		<Modal open={props.open} closeIcon onClose={props.closeEditModal}>
 			<Header> Edit List </Header>
 				<Modal.Content>

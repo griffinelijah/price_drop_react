@@ -10,7 +10,7 @@ function ItemList(props){
 				return(
 					<List key={item.id} celled size='massive'>
 						<List.Item className='itemList'>
-							<a href={item.url}><Image medium src={item.image}/></a>
+							<a href={item.url}><Image src={item.image}/></a>
 							<List.Content>
 								<List.Header>{item.name}</List.Header>
 								<List.Description>

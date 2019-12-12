@@ -136,7 +136,7 @@ class ListContainer extends Component {
 		//stop default page refresh when submitting form
 		e.preventDefault();
 		try {
-			const apiUrl = process.env.REACT_APP_API_URL + '/api/v1/listsx	/' + this.state.listToEdit.id
+			const apiUrl = process.env.REACT_APP_API_URL + '/api/v1/lists/' + this.state.listToEdit.id
 			const updatedListRes = await fetch(apiUrl,
 			{
 				method: 'PUT',
