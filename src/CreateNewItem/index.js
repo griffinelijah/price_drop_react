@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Form, Button, Label, Segment} from 'semantic-ui-react';
+import { Modal, Form, Button, Label, Segment, Loader} from 'semantic-ui-react';
 
 class CreateNewItem extends Component {
 	constructor(props){
@@ -22,12 +22,26 @@ class CreateNewItem extends Component {
 					open={this.props.open}
 					closeIcon
 					onClose={this.props.closeCreateItemModal}>
-					<h1>Add an item</h1>
-					<Form size='tiny' onSubmit={(e) => this.props.addItem(e, this.state)}>
-						<Label>Url: </Label>
-						<Form.Input type='text' name='url' value={this.state.url} onChange={this.handleChange}/>
-						<Button type='submit'>Add item</Button>
-					</Form>
+					<div className='createItemDiv'>
+						<h1>Add an item</h1>
+							{
+								this.props.isLoading === true
+								?
+								<div class="ui segment">
+								  <div class="ui active dimmer">
+								    <div class="ui text loader">Loading</div>
+								  </div>
+								  <p></p>
+								</div>
+								:
+								null
+							}
+						<Form size='tiny' onSubmit={(e) => this.props.addItem(e, this.state)}>
+							<Label>Url: </Label>
+							<Form.Input type='text' name='url' value={this.state.url} onChange={this.handleChange}/>
+							<Button color='green'type='submit'>Add item</Button>
+						</Form>
+					</div>
 				</Modal>
 			</div>
 		)

@@ -22,7 +22,7 @@ function EditListModal(props) {
 							onChange={props.handleEditChange}
 						/>
 						<Modal.Actions>
-							<Button type='submit'> Submit Changes</Button>
+							<Button color='green' type='submit'> Submit Changes</Button>
 						</Modal.Actions>
 					</Form>
 				</Modal.Content>

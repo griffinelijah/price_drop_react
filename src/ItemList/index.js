@@ -8,17 +8,17 @@ function ItemList(props){
 		items = props.items.map((item) => {
 			if(item.list_id.id === props.listId){
 				return(
-					<List animated key={item.id} celled size='massive'>
+					<List className='itemList'animated key={item.id} celled size='massive'>
 						<List.Item>
-							<Image avatar src={item.image} />
+							<Image medium src={item.image} />
 							<List.Content>
 								<List.Header>{item.name}</List.Header>
 								<List.Description>
-								<span>Original Price: {item.original_price}</span><br/>
-								<strong>Discounted Price: {item.disc_price}</strong>
+								<span className='origPrice'>Original Price: {item.original_price}</span><br/>
+								<strong className='discPrice'>Discounted Price: {item.disc_price}</strong>
 								</List.Description>
 							</List.Content>
-							<Button size='mini'type='submit' onClick={() => props.deleteItem(item.id)}>Delete</Button>
+							<Button size='small'type='submit' onClick={() => props.deleteItem(item.id)}><i class="trash alternate outline icon"></i></Button>
 						</List.Item>
 					</List>
 				)

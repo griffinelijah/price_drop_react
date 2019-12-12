@@ -26,14 +26,16 @@ class CreateList extends Component {
 					closeIcon
 					onClose={this.props.closeCreateListModal}
 					>
-					<h1>Create New list</h1>
-						<Form size='tiny' onSubmit={(e) => this.props.addList(e, this.state)}>
-							<Label>Title: </Label>
-							<Form.Input type='text' name='title' value={this.state.title} onChange={this.handleChange}/>
-							<Label>Notification Preference: </Label>
-							<Form.Input type='text' name='notif_preference' value={this.state.notif_preference} onChange={this.handleChange}/>
-							<Button type='submit'>Create List</Button>
-						</Form>
+					<div className='createList'>
+						<h1>Create New list</h1>
+							<Form size='tiny' onSubmit={(e) => this.props.addList(e, this.state)}>
+								<Label>Title: </Label>
+								<Form.Input type='text' name='title' value={this.state.title} onChange={this.handleChange}/>
+								<Label>Notification Preference: </Label>
+								<Form.Input type='text' name='notif_preference' value={this.state.notif_preference} onChange={this.handleChange}/>
+								<Button color='green' type='submit'>Create List</Button>
+							</Form>
+					</div>
 				</Modal>
 			</div>
 		)

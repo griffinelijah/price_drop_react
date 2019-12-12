@@ -13,6 +13,7 @@ class ListContainer extends Component {
 			lists: [],
 			listId: '',
 			items: [],
+			isLoading: false,
 			//this will control whether the edit list modal is open or closed
 			editListModalIsOpen: false,
 			createItemModalIsopen: false,
@@ -39,7 +40,7 @@ class ListContainer extends Component {
 			//parse all found lists
 			const parsedLists = await lists.json();
 			console.log('got lists:', parsedLists.data)
-			// parsedLists.data.forEach(list => console.log('list:', list))
+			//have conditional that checks status of fetch and if it is successful set status of loading to false
 
 			this.setState({
 				lists: parsedLists.data
@@ -47,13 +48,13 @@ class ListContainer extends Component {
 		} catch (err){
 			console.log(err);
 		}
-
 	}
 
-	//add list
+	//add list and this function will check to see if the status of the fetch call is successful and turns on or off the loadaing icon
 	addList = async (e, listFromForm) => {
 		e.preventDefault();
 		try{
+			//this makes our fetch call to create the item
 			const createdListRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/lists/', 
 			{
 				method: 'POST',
@@ -65,7 +66,6 @@ class ListContainer extends Component {
 			})
 
 			const parsedRes = await createdListRes.json()
-
 			this.setState({lists: [...this.state.lists, parsedRes.data]})
 		}
 		catch(err){
@@ -165,24 +165,14 @@ class ListContainer extends Component {
 			console.log(err);
 		}
 	}
-	// //this will make a fetch call to retrive items belonging to our lists
-	// getItems = async () => {
-	// 	const items = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/', 
-	// 	{
-	// 		credentials: 'include'
-	// 	})
-	// 	//parsing all found items
-	// 	const parsedItems = await items.json()
-	// 	//set state to include found items
-	// 	this.setState({
-	// 		items: [...this.state.comments, parsedItems.data]
-	// 	})
-	// }
-	//this will elt us create a new item
+	//this will elt us create a new item and set staate of isLoading to true until succesful response is received from the api
 	addItem = async (e, itemFromForm) => {
 		//prevent default page refresh when submitting form
 		e.preventDefault();
+		//change state of isLoading to tru while item is being created
+		this.setState({ isLoading: true })
 		try {
+			//this makes ouur fetch call to create a new item
 			const createdItemRes = await fetch(process.env.REACT_APP_API_URL + '/api/v1/items/' + this.state.listId, 
 			{
 				method: 'POST',
@@ -195,6 +185,12 @@ class ListContainer extends Component {
 			const parsedItemRes = await createdItemRes.json();
 			console.log('\nthis is parsedItemRes in addItem');
 			console.log(parsedItemRes);
+			if(parsedItemRes.status.code === 201){
+				this.setState({ 
+					isLoading: false,
+					createItemModalIsopen: false
+				})
+			} 
 			this.setState({items: [...this.state.items, parsedItemRes.data]})
 		} catch(err) {
 			console.log(err);
@@ -263,6 +259,7 @@ class ListContainer extends Component {
 							open={this.state.createItemModalIsopen}
 							closeCreateItemModal={this.closeCreateItemModal}
 							addItem={this.addItem}
+							isLoading={this.state.isLoading}
 							/>
 						</Grid.Column>
 						:

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, Image} from 'semantic-ui-react';
+import { Card, Button, Image, Icon} from 'semantic-ui-react';
 import ItemList from '../ItemList'
 
 function UserLists(props) {
@@ -15,9 +15,9 @@ function UserLists(props) {
 						</Card.Meta>
 						<Card.Content extra>
 							<span>{list.created}</span>
-							<Button size='tiny' onClick={() => props.deleteList(list.id)}>Delete List</Button>
-							<Button size='tiny' onClick={() =>props.editList(list.id)}>Edit List</Button>
-							<Button size='tiny' onClick={() =>props.openCreateItemModal(list.id)}>Add Item</Button>
+							<Button className='cardButtons' color='red'size='small' onClick={() => props.deleteList(list.id)}><i class="trash icon"></i></Button>
+							<Button className='cardButtons' color='blue'size='small' onClick={() =>props.editList(list.id)}><i class="pencil alternate icon"></i></Button>
+							<Button className='cardButtons' color='green'size='small' onClick={() =>props.openCreateItemModal(list.id)}><i class="plus icon"></i></Button>
 						</Card.Content>
 						<Card.Content extra >
 							<ItemList

@@ -12,7 +12,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       loggedInUserEmail: null,
       loginCode: 200,
       activeItem: 'home',
@@ -133,8 +133,8 @@ class App extends Component {
         {this.state.loggedIn ? (
           <React.Fragment>
             <div className='navBar'>
-             <Menu secondary inverted stackable size='huge'>
-              <Menu.Item class="navItem"
+             <Menu secondary  stackable size='huge'className='ui menu'>
+              <Menu.Item
                 size='big'
                 name='home'
                 active={activeItem === 'home'}
