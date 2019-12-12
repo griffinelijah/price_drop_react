@@ -6,6 +6,7 @@ import LoginRegisterForm from './LoginRegisterForm'
 import ListContainer from './ListContainer'
 import { Form, Message, Button, Input, Menu } from 'semantic-ui-react'
 import CreateNewList from './CreateNewList'
+import priceDropIcon from './price-drop-icon.png'
 
 
 class App extends Component {
@@ -117,7 +118,8 @@ class App extends Component {
     const { activeItem } = this.state
     return (
        <div className='App'>
-        <h1 className='title'>Price_Drop</h1>
+        <h1 className='title'>Price_Drop<img className='icon'src={priceDropIcon}/></h1>
+        
         {this.state.loginCode === 401
           ?
           <Form error>

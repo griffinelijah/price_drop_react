@@ -8,8 +8,8 @@ function ItemList(props){
 		items = props.items.map((item) => {
 			if(item.list_id.id === props.listId){
 				return(
-					<List className='itemList'animated key={item.id} celled size='massive'>
-						<List.Item>
+					<List key={item.id} celled size='massive'>
+						<List.Item className='itemList'>
 							<Image medium src={item.image} />
 							<List.Content>
 								<List.Header>{item.name}</List.Header>

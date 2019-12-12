@@ -50,7 +50,7 @@ body {
   margin: 2%;
   color: rgba(0, 0, 0, 0.0);
   font-size: 600%;
-  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
 
@@ -86,10 +86,15 @@ body {
 }
 
 .itemList {
-  margin: 2%;
+  margin: 3%;
 }
 
 .createList {
   margin: 2%;
+}
+
+.icon {
+  height: 75px;
+  margin-left: 1%;
 }
 
